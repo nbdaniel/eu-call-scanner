@@ -10,6 +10,7 @@
     "scan": "node src/index.js scan",
     "briefing": "node src/index.js briefing",
     "schedule": "node src/index.js schedule",
+    "gmail-auth": "node scripts/gmail-auth.js",
     "test:parser": "node scripts/test-parser.js",
     "test:scorer": "node scripts/test-scorer.js"
   },
@@ -18,6 +19,7 @@
     "axios": "^1.7.0",
     "cheerio": "^1.0.0",
     "dotenv": "^16.4.0",
+    "googleapis": "^171.4.0",
     "node-cron": "^3.0.3"
   }
 }
