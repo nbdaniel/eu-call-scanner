@@ -6,6 +6,7 @@ const { fetchCalls: fetchCreativeEurope } = require('./portals/creative-europe')
 const { fetchCalls: fetchESF } = require('./portals/esf-plus');
 const { fetchCalls: fetchAMIF } = require('./portals/amif');
 const { fetchCalls: fetchLIFE } = require('./portals/life');
+const { fetchCalls: fetchHorizon } = require('./portals/horizon-europe');
 const { parseCall } = require('./parser');
 const { scoreCall } = require('./scorer');
 const { loadSeenIds, markSeen, upsertCall, loadCalls } = require('./storage');
@@ -29,7 +30,7 @@ async function runPortal(name, fetchFn) {
 async function scan({ forceReparse = false } = {}) {
   log('SCAN', 'Starting EU funding call scan...');
 
-  const [ftCalls, erasmusCalls, interregCalls, creativeCalls, esfCalls, amifCalls, lifeCalls] = await Promise.all([
+  const [ftCalls, erasmusCalls, interregCalls, creativeCalls, esfCalls, amifCalls, lifeCalls, horizonCalls] = await Promise.all([
     runPortal('EU-FT', fetchFT),
     runPortal('ERASMUS+', fetchErasmus),
     runPortal('INTERREG', fetchInterreg),
@@ -37,11 +38,12 @@ async function scan({ forceReparse = false } = {}) {
     runPortal('ESF+', fetchESF),
     runPortal('AMIF', fetchAMIF),
     runPortal('LIFE', fetchLIFE),
+    runPortal('HORIZON', fetchHorizon),
   ]);
 
   // Deduplicate by URL across portals (SEDIA returns same calls from multiple queries)
   const urlSeen = new Set();
-  const allRaw = [...ftCalls, ...erasmusCalls, ...interregCalls, ...creativeCalls, ...esfCalls, ...amifCalls, ...lifeCalls].filter(c => {
+  const allRaw = [...ftCalls, ...erasmusCalls, ...interregCalls, ...creativeCalls, ...esfCalls, ...amifCalls, ...lifeCalls, ...horizonCalls].filter(c => {
     const key = c.url || c.raw_id;
     if (urlSeen.has(key)) return false;
     urlSeen.add(key);
