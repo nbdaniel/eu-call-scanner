@@ -7,6 +7,36 @@ const MODEL = process.env.SCORE_MODEL || 'claude-haiku-4-5-20251001';
 
 const SYSTEM = `You are a senior EU grant consultant. Score funding calls for NGO eligibility and strategic fit. Return valid JSON only — no markdown, no explanation, no code blocks. All double-quote characters inside string values must be escaped as \\". Never include unescaped double quotes within JSON string values.`;
 
+function repairJson(text) {
+  let result = '';
+  let inString = false;
+  let escaped = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (escaped) { result += ch; escaped = false; continue; }
+    if (ch === '\\') { result += ch; escaped = true; continue; }
+    if (ch === '"') {
+      if (!inString) {
+        inString = true;
+        result += ch;
+      } else {
+        let j = i + 1;
+        while (j < text.length && (text[j] === ' ' || text[j] === '\t' || text[j] === '\r' || text[j] === '\n')) j++;
+        const next = text[j];
+        if (next === ':' || next === ',' || next === '}' || next === ']' || j >= text.length) {
+          inString = false;
+          result += ch;
+        } else {
+          result += '\\"';
+        }
+      }
+    } else {
+      result += ch;
+    }
+  }
+  return result;
+}
+
 function safeJsonParse(text) {
   try {
     return JSON.parse(text);
@@ -20,7 +50,11 @@ function safeJsonParse(text) {
     try {
       return JSON.parse(fixed);
     } catch (e2) {
-      throw e;
+      try {
+        return JSON.parse(repairJson(text));
+      } catch (e3) {
+        throw e;
+      }
     }
   }
 }

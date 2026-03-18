@@ -6,11 +6,45 @@ const MODEL = process.env.PARSE_MODEL || 'claude-haiku-4-5-20251001';
 
 const SYSTEM = `You are an expert in EU funding programs. Extract structured information from funding call data and return valid JSON only — no markdown, no explanation, no code blocks. All double-quote characters inside string values must be escaped as \\". Never include unescaped double quotes within JSON string values.`;
 
+function repairJson(text) {
+  // Character-level scan: escape any unescaped " that appear inside a string value.
+  // Detects end-of-string by checking whether the " is followed (after whitespace)
+  // by a JSON structural character (:  ,  }  ]).
+  let result = '';
+  let inString = false;
+  let escaped = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (escaped) { result += ch; escaped = false; continue; }
+    if (ch === '\\') { result += ch; escaped = true; continue; }
+    if (ch === '"') {
+      if (!inString) {
+        inString = true;
+        result += ch;
+      } else {
+        // Peek ahead (skip whitespace) to decide if this closes the string
+        let j = i + 1;
+        while (j < text.length && (text[j] === ' ' || text[j] === '\t' || text[j] === '\r' || text[j] === '\n')) j++;
+        const next = text[j];
+        if (next === ':' || next === ',' || next === '}' || next === ']' || j >= text.length) {
+          inString = false;
+          result += ch;
+        } else {
+          result += '\\"'; // escape the internal quote
+        }
+      }
+    } else {
+      result += ch;
+    }
+  }
+  return result;
+}
+
 function safeJsonParse(text) {
   try {
     return JSON.parse(text);
   } catch (e) {
-    // Replace typographic/curly quotes with unicode escapes so they're safe inside JSON strings
+    // Attempt 2: replace typographic/curly quotes with unicode escapes
     const fixed = text
       .replace(/„/g, '\\u201e')
       .replace(/\u201c/g, '\\u201c')
@@ -20,7 +54,12 @@ function safeJsonParse(text) {
     try {
       return JSON.parse(fixed);
     } catch (e2) {
-      throw e;
+      // Attempt 3: character-level repair of unescaped internal quotes
+      try {
+        return JSON.parse(repairJson(text));
+      } catch (e3) {
+        throw e;
+      }
     }
   }
 }
