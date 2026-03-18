@@ -120,7 +120,7 @@ async function fetchCalls() {
       if (!body && !subject) continue;
 
       // Skip obvious welcome/subscription/admin emails
-      const skipPattern = /welcome|bine ai venit|contul a fost creat|activează contul|confirm.*subscri|security alert|password|verification|performance report|please confirm/i;
+      const skipPattern = /welcome|bine ai venit|contul (a fost|tău)|activează contul|confirm.*subscri|security alert|password|verification|performance report|please confirm|a fost aprobat/i;
       if (skipPattern.test(subject)) continue;
 
       const rawId = `gmail-${msg.id}`;

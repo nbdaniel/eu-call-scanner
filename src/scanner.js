@@ -9,6 +9,7 @@ const { fetchCalls: fetchLIFE } = require('./portals/life');
 const { fetchCalls: fetchHorizon } = require('./portals/horizon-europe');
 const { fetchCalls: fetchCERV } = require('./portals/cerv');
 const { fetchCalls: fetchGmail } = require('./portals/gmail');
+const { fetchCalls: fetchOportunitatiUE } = require('./portals/oportunitati-ue');
 const { parseCall } = require('./parser');
 const { scoreCall } = require('./scorer');
 const { loadSeenIds, markSeen, upsertCall, loadCalls } = require('./storage');
@@ -32,7 +33,7 @@ async function runPortal(name, fetchFn) {
 async function scan({ forceReparse = false } = {}) {
   log('SCAN', 'Starting EU funding call scan...');
 
-  const [ftCalls, erasmusCalls, interregCalls, creativeCalls, esfCalls, amifCalls, lifeCalls, horizonCalls, cervCalls, gmailCalls] = await Promise.all([
+  const [ftCalls, erasmusCalls, interregCalls, creativeCalls, esfCalls, amifCalls, lifeCalls, horizonCalls, cervCalls, gmailCalls, oportunitatiCalls] = await Promise.all([
     runPortal('EU-FT', fetchFT),
     runPortal('ERASMUS+', fetchErasmus),
     runPortal('INTERREG', fetchInterreg),
@@ -43,11 +44,12 @@ async function scan({ forceReparse = false } = {}) {
     runPortal('HORIZON', fetchHorizon),
     runPortal('CERV', fetchCERV),
     runPortal('GMAIL', fetchGmail),
+    runPortal('OPORTUNITATI-UE', fetchOportunitatiUE),
   ]);
 
   // Deduplicate by URL across portals (SEDIA returns same calls from multiple queries)
   const urlSeen = new Set();
-  const allRaw = [...ftCalls, ...erasmusCalls, ...interregCalls, ...creativeCalls, ...esfCalls, ...amifCalls, ...lifeCalls, ...horizonCalls, ...cervCalls, ...gmailCalls].filter(c => {
+  const allRaw = [...ftCalls, ...erasmusCalls, ...interregCalls, ...creativeCalls, ...esfCalls, ...amifCalls, ...lifeCalls, ...horizonCalls, ...cervCalls, ...gmailCalls, ...oportunitatiCalls].filter(c => {
     const key = c.url || c.raw_id;
     if (urlSeen.has(key)) return false;
     urlSeen.add(key);
