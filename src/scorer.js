@@ -5,7 +5,25 @@ const profile = require('./profile');
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 const MODEL = process.env.SCORE_MODEL || 'claude-haiku-4-5-20251001';
 
-const SYSTEM = `You are a senior EU grant consultant. Score funding calls for NGO eligibility and strategic fit. Return valid JSON only — no markdown, no explanation, no code blocks.`;
+const SYSTEM = `You are a senior EU grant consultant. Score funding calls for NGO eligibility and strategic fit. Return valid JSON only — no markdown, no explanation, no code blocks. All double-quote characters inside string values must be escaped as \\". Never include unescaped double quotes within JSON string values.`;
+
+function safeJsonParse(text) {
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    const fixed = text
+      .replace(/„/g, '\\u201e')
+      .replace(/\u201c/g, '\\u201c')
+      .replace(/\u201d/g, '\\u201d')
+      .replace(/\u2018/g, '\\u2018')
+      .replace(/\u2019/g, '\\u2019');
+    try {
+      return JSON.parse(fixed);
+    } catch (e2) {
+      throw e;
+    }
+  }
+}
 
 function buildPrompt(call) {
   const today = new Date().toISOString().slice(0, 10);
@@ -69,11 +87,11 @@ async function scoreCall(parsedCall) {
     messages: [{ role: 'user', content: buildPrompt(parsedCall) }],
   });
 
-  const text = response.content[0].text.trim()
+  const raw = response.content[0].text.trim()
     .replace(/^```(?:json)?\n?/, '')
     .replace(/\n?```$/, '');
 
-  const scored = JSON.parse(text);
+  const scored = safeJsonParse(raw);
 
   return {
     call_id: parsedCall.id,
