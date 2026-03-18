@@ -6,16 +6,21 @@ const CREDENTIALS_PATH = path.join(__dirname, '../../credentials/gmail-credentia
 const TOKEN_PATH = path.join(__dirname, '../../credentials/gmail-token.json');
 const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
 
-// Search queries to find EU funding opportunity emails
+// Search queries to find EU funding opportunity emails.
+// Tuned to actual inbox sources: fundsforNGOs, Devex, EACEA, Romanian Ministry, fonduri-structurale.ro
 const GMAIL_QUERIES = [
-  'subject:"call for proposals" EU funding',
-  'subject:"call for applications" Erasmus',
-  'subject:"open call" European Commission',
-  'subject:"funding opportunity" EU NGO',
+  // Dedicated NGO funding newsletters
+  'from:fundsforngos.org',
+  'from:devex.com grant OR funding OR call',
+  // EC and EACEA official sources
   'from:eacea.ec.europa.eu',
-  'from:erasmus-plus.ec.europa.eu',
   'from:ec.europa.eu call proposals',
-  '"call for proposals" Erasmus CERV Interreg',
+  // Romanian government EU funding portal
+  'from:mipe.gov.ro OR subject:"Oportunități de finanțare"',
+  'from:fonduri-structurale.ro',
+  // Broad funding keywords in English and Romanian
+  'subject:"call for proposals" (Erasmus OR CERV OR Interreg OR ESF OR AMIF)',
+  'subject:"cerere de propuneri" OR subject:"apel de proiecte" OR subject:"finantare europeana"',
 ];
 
 function getAuthClient() {
@@ -113,6 +118,10 @@ async function fetchCalls() {
 
       const body = extractBody(full.payload).slice(0, 3000);
       if (!body && !subject) continue;
+
+      // Skip obvious welcome/subscription/admin emails
+      const skipPattern = /welcome|bine ai venit|contul a fost creat|activează contul|confirm.*subscri|security alert|password|verification|performance report|please confirm/i;
+      if (skipPattern.test(subject)) continue;
 
       const rawId = `gmail-${msg.id}`;
       const title = subject.slice(0, 120);
