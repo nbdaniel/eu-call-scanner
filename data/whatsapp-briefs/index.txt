@@ -1,18 +1,19 @@
 WHATSAPP BRIEFS — 2026-03-26
-Generat: 26.03.2026, 10:01:48
+Generat: 26.03.2026, 10:37:11
+Apeluri eligibile după filtrare: 533 / 602
 Total apeluri distribuite: 35 (în 7 categorii)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 CALENDAR DE POSTARE — SĂPTĂMÂNA ACEASTA
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Luni 23 martie          → primarii.txt   [5 apeluri, 1240 caractere]
-  Marți 24 martie          → imm.txt   [5 apeluri, 875 caractere]
-  Miercuri 25 martie          → ong.txt   [5 apeluri, 1151 caractere]
-  Joi 26 martie          → educatie.txt   [5 apeluri, 1116 caractere]
-  Vineri 27 martie          → tineri.txt   [5 apeluri, 1286 caractere]
-  Sâmbătă 28 martie          → cetateni.txt   [5 apeluri, 1101 caractere]
-  Duminică 29 martie          → medici.txt   [5 apeluri, 982 caractere]
+  Luni       23 martie        → primarii.txt   [5 apeluri, 985 caractere]
+  Marți      24 martie        → imm.txt   [5 apeluri, 1302 caractere]
+  Miercuri   25 martie        → ong.txt   [5 apeluri, 1228 caractere]
+  Joi        26 martie        → educatie.txt   [5 apeluri, 1349 caractere]
+  Vineri     27 martie        → tineri.txt   [5 apeluri, 1368 caractere]
+  Sâmbătă    28 martie        → cetateni.txt   [5 apeluri, 1175 caractere]
+  Duminică   29 martie        → medici.txt   [5 apeluri, 1370 caractere]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 DETALII PER CATEGORIE
@@ -21,43 +22,43 @@ DETALII PER CATEGORIE
 🏛️  Primării și autorități locale
    Fișier:            whatsapp-briefs/primarii.txt
    Apeluri relevante: 5
-   Lungime mesaj:     1240 caractere
+   Lungime mesaj:     985 caractere
    Zi de postare:     Luni
 
 🏢  IMM-uri și antreprenori
    Fișier:            whatsapp-briefs/imm.txt
    Apeluri relevante: 5
-   Lungime mesaj:     875 caractere
+   Lungime mesaj:     1302 caractere
    Zi de postare:     Marți
 
 🤝  ONG-uri și asociații
    Fișier:            whatsapp-briefs/ong.txt
    Apeluri relevante: 5
-   Lungime mesaj:     1151 caractere
+   Lungime mesaj:     1228 caractere
    Zi de postare:     Miercuri
 
 🎓  Școli, universități și cadre didactice
    Fișier:            whatsapp-briefs/educatie.txt
    Apeluri relevante: 5
-   Lungime mesaj:     1116 caractere
+   Lungime mesaj:     1349 caractere
    Zi de postare:     Joi
 
 🌟  Tineri, studenți și NEET
    Fișier:            whatsapp-briefs/tineri.txt
    Apeluri relevante: 5
-   Lungime mesaj:     1286 caractere
+   Lungime mesaj:     1368 caractere
    Zi de postare:     Vineri
 
 👤  Cetățeni individuali
    Fișier:            whatsapp-briefs/cetateni.txt
    Apeluri relevante: 5
-   Lungime mesaj:     1101 caractere
+   Lungime mesaj:     1175 caractere
    Zi de postare:     Sâmbătă
 
 🩺  Medici de familie și cabinete medicale
    Fișier:            whatsapp-briefs/medici.txt
    Apeluri relevante: 5
-   Lungime mesaj:     982 caractere
+   Lungime mesaj:     1370 caractere
    Zi de postare:     Duminică
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
