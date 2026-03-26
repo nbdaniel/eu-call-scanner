@@ -31,6 +31,27 @@ async function runBriefing() {
   console.log(content);
 }
 
+async function runWhatsapp() {
+  const { loadCalls } = require('./storage');
+  const { generateWhatsappBriefs } = require('./whatsapp');
+
+  console.log('[WHATSAPP] Loading calls from storage...');
+  const calls = loadCalls();
+
+  if (calls.length === 0) {
+    console.error('[WHATSAPP] No calls in database. Run `npm run scan` first.');
+    process.exit(1);
+  }
+
+  const entries = calls.filter(c => c.parsed && c.score);
+  console.log(`[WHATSAPP] ${entries.length} scored calls. Generating WhatsApp messages...`);
+
+  const results = await generateWhatsappBriefs(entries);
+  const total = results.reduce((s, r) => s + r.callCount, 0);
+  console.log(`\n[WHATSAPP] Done. ${results.length} mesaje generate în data/whatsapp-briefs/`);
+  console.log(`[WHATSAPP] Total apeluri distribuite: ${total}`);
+}
+
 async function runSchedule() {
   const cron = require('node-cron');
   const { scan } = require('./scanner');
@@ -66,6 +87,7 @@ Commands:
   npm run briefing          Generate this week's funding briefing
   npm run schedule          Run on weekly cron schedule
 
+  npm run whatsapp          Generate WhatsApp messages per stakeholder profile
   npm run test:parser       Test the Claude parser with a sample call
   npm run test:scorer       Test the Claude scorer with a sample call
 
@@ -82,9 +104,10 @@ if (!process.env.ANTHROPIC_API_KEY) {
 
 (async () => {
   switch (command) {
-    case 'scan':     return runScan();
-    case 'briefing': return runBriefing();
-    case 'schedule': return runSchedule();
+    case 'scan':      return runScan();
+    case 'briefing':  return runBriefing();
+    case 'whatsapp':  return runWhatsapp();
+    case 'schedule':  return runSchedule();
     default:         return printHelp();
   }
 })().catch(err => {

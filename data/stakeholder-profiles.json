@@ -1,0 +1,121 @@
+{
+  "stakeholders": [
+    {
+      "id": "primarii",
+      "label": "Primării și autorități locale",
+      "emoji": "🏛️",
+      "keywords": [
+        "local authority", "municipality", "public administration", "cohesion",
+        "infrastructure", "urban development", "rural development", "digitisation",
+        "e-government", "smart city", "ERDF", "Cohesion Fund", "LEADER", "LAG",
+        "territorial", "regional development", "cross-border", "PNRR",
+        "public body", "administrație publică", "primărie", "infrastructură"
+      ],
+      "programme_filters": [
+        "FEDR", "FSE+", "ESF+", "Fondul de Coeziune", "Interreg",
+        "PNRR", "LEADER", "Horizon Europe", "Digital Europe"
+      ],
+      "description_ro": "Fonduri pentru infrastructură, digitalizarea administrației, dezvoltare urbană și rurală, coeziune teritorială și parteneriate transfrontaliere."
+    },
+    {
+      "id": "imm",
+      "label": "IMM-uri și antreprenori",
+      "emoji": "🏢",
+      "keywords": [
+        "SME", "small and medium", "enterprise", "business", "entrepreneurship",
+        "innovation", "digital transformation", "competitiveness", "COSME",
+        "InvestEU", "startup", "scale-up", "EIC", "green economy", "export",
+        "circular economy", "technology transfer", "accelerator", "venture",
+        "IMM", "întreprindere", "antreprenoriat", "inovare", "competitivitate"
+      ],
+      "programme_filters": [
+        "SMP", "COSME", "InvestEU", "Horizon Europe", "Digital Europe",
+        "LIFE", "FEDR", "programele operaționale regionale"
+      ],
+      "description_ro": "Granturi și instrumente financiare pentru competitivitate, digitalizare, inovare, acces la piețe internaționale și tranziție verde."
+    },
+    {
+      "id": "ong",
+      "label": "ONG-uri și asociații",
+      "emoji": "🤝",
+      "keywords": [
+        "NGO", "civil society", "non-governmental", "association", "rights",
+        "inclusion", "volunteering", "non-formal education", "cross-border cooperation",
+        "youth work", "community", "advocacy", "capacity building", "social inclusion",
+        "diversity", "equality", "citizenship", "EEA Grants", "CERV",
+        "ONG", "asociație", "societate civilă", "incluziune", "voluntariat"
+      ],
+      "programme_filters": [
+        "Erasmus+", "CERV", "ESF+", "Interreg", "Creative Europe",
+        "EEA Grants", "LIFE", "Europe for Citizens"
+      ],
+      "description_ro": "Finanțare pentru proiecte de societate civilă, drepturi fundamentale, incluziune socială, educație non-formală și cooperare transnațională."
+    },
+    {
+      "id": "educatie",
+      "label": "Școli, universități și cadre didactice",
+      "emoji": "🎓",
+      "keywords": [
+        "education", "school", "university", "higher education", "teacher",
+        "training", "mobility", "strategic partnership", "research", "curriculum",
+        "digital education", "MSCA", "ERC", "vocational training", "VET",
+        "lifelong learning", "recognition of qualifications", "Youthpass",
+        "educație", "școală", "universitate", "profesor", "formare", "mobilitate"
+      ],
+      "programme_filters": [
+        "Erasmus+", "Horizon Europe", "Digital Europe", "ESF+",
+        "European Solidarity Corps"
+      ],
+      "description_ro": "Mobilități, parteneriate strategice, digitalizarea educației, formare continuă și proiecte de cercetare pentru instituții și cadre didactice."
+    },
+    {
+      "id": "medici",
+      "label": "Medici de familie și cabinete medicale",
+      "emoji": "🩺",
+      "keywords": [
+        "health", "healthcare", "public health", "prevention", "screening",
+        "e-health", "digital health", "telemedicine", "primary care",
+        "general practitioner", "medical training", "EU4Health", "health promotion",
+        "patient", "disease prevention", "health system", "medical innovation",
+        "sănătate", "medic", "cabinet medical", "prevenție", "digitalizare medicală"
+      ],
+      "programme_filters": [
+        "EU4Health", "ESF+", "Horizon Europe", "Digital Europe"
+      ],
+      "description_ro": "Finanțare pentru digitalizare medicală, e-health, prevenție și screening, formare continuă și proiecte de sănătate publică."
+    },
+    {
+      "id": "tineri",
+      "label": "Tineri, studenți și NEET",
+      "emoji": "🌟",
+      "keywords": [
+        "youth", "young people", "student", "NEET", "youth employment",
+        "volunteering", "mobility", "internship", "traineeship", "apprenticeship",
+        "European Solidarity Corps", "ESC", "Youth Guarantee", "youth work",
+        "non-formal learning", "youthpass", "youth exchange", "empowerment",
+        "tineri", "studenți", "voluntariat", "mobilitate", "stagiu", "NEET"
+      ],
+      "programme_filters": [
+        "Erasmus+", "European Solidarity Corps", "ESF+", "EURES",
+        "SALTO-Youth"
+      ],
+      "description_ro": "Mobilități, voluntariat european, stagii, formare și sprijin pentru integrarea pe piața muncii a tinerilor, inclusiv NEET."
+    },
+    {
+      "id": "cetateni",
+      "label": "Cetățeni individuali",
+      "emoji": "👤",
+      "keywords": [
+        "citizen", "individual", "adult learning", "lifelong learning",
+        "recognition of qualifications", "consumer protection", "free movement",
+        "EURES", "job mobility", "rights", "SOLVIT", "Your Europe",
+        "adult education", "reskilling", "upskilling", "cross-border rights",
+        "cetățean", "adult", "calificări", "drepturi europene", "mobilitate"
+      ],
+      "programme_filters": [
+        "Erasmus+", "ESF+", "EURES", "SOLVIT", "Your Europe"
+      ],
+      "description_ro": "Cursuri gratuite, mobilități pentru adulți, recunoașterea calificărilor, drepturi europene și sprijin pentru cetățenii care se mută sau lucrează în alt stat UE."
+    }
+  ]
+}

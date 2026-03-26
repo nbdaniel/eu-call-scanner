@@ -1,0 +1,36 @@
+WHATSAPP BRIEFS — 2026-03-26
+Generat: 26.03.2026, 09:54:59
+
+ORDINE RECOMANDATĂ DE POSTARE (după numărul de apeluri relevante):
+
+1. 🏛️  Primării și autorități locale
+   Fișier: whatsapp-briefs/primarii.txt
+   Apeluri relevante: 5 | Lungime: 1246 caractere
+
+2. 🏢  IMM-uri și antreprenori
+   Fișier: whatsapp-briefs/imm.txt
+   Apeluri relevante: 5 | Lungime: 838 caractere
+
+3. 🤝  ONG-uri și asociații
+   Fișier: whatsapp-briefs/ong.txt
+   Apeluri relevante: 5 | Lungime: 1148 caractere
+
+4. 🎓  Școli, universități și cadre didactice
+   Fișier: whatsapp-briefs/educatie.txt
+   Apeluri relevante: 5 | Lungime: 1114 caractere
+
+5. 🩺  Medici de familie și cabinete medicale
+   Fișier: whatsapp-briefs/medici.txt
+   Apeluri relevante: 5 | Lungime: 625 caractere
+
+6. 🌟  Tineri, studenți și NEET
+   Fișier: whatsapp-briefs/tineri.txt
+   Apeluri relevante: 5 | Lungime: 1206 caractere
+
+7. 👤  Cetățeni individuali
+   Fișier: whatsapp-briefs/cetateni.txt
+   Apeluri relevante: 5 | Lungime: 1106 caractere
+
+---
+NOTĂ: Copiază fiecare fișier .txt și trimite-l în grupul WhatsApp corespunzător.
+Verifică deadline-urile înainte de postare — pot fi actualizate față de săptămâna trecută.
