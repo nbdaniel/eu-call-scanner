@@ -9,6 +9,7 @@
   "scripts": {
     "scan": "node src/index.js scan",
     "briefing": "node src/index.js briefing",
+    "weekly": "node src/index.js weekly",
     "whatsapp": "node src/index.js whatsapp",
     "schedule": "node src/index.js schedule",
     "gmail-auth": "node scripts/gmail-auth.js",

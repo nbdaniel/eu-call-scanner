@@ -31,6 +31,77 @@ async function runBriefing() {
   console.log(content);
 }
 
+async function runWeekly() {
+  const { scan } = require('./scanner');
+  const { loadCalls } = require('./storage');
+  const { generateBriefing } = require('./briefing');
+  const { generateWhatsappBriefs } = require('./whatsapp');
+
+  const startTime = Date.now();
+  const sep = '─'.repeat(52);
+
+  console.log(sep);
+  console.log('  AMPE EU SCANNER — PIPELINE COMPLET');
+  console.log(`  ${new Date().toLocaleString('ro-RO')}`);
+  console.log(sep);
+
+  // 1. SCAN
+  console.log('\n[1/3] SCANARE PORTALE...\n');
+  await scan({ forceReparse: flags.includes('--force') });
+
+  // 2. BRIEFING
+  console.log('\n[2/3] GENERARE BRIEF AMPE (.md)...\n');
+  const calls = loadCalls();
+  const entries = calls.filter(c => c.parsed && c.score).map(c => ({ parsed: c.parsed, score: c.score }));
+  const { filepath: briefingPath } = await generateBriefing(entries);
+
+  // 3. WHATSAPP
+  console.log('\n[3/3] GENERARE MESAJE WHATSAPP...\n');
+  const whatsappResults = await generateWhatsappBriefs(calls.filter(c => c.parsed && c.score));
+
+  // REZUMAT FINAL
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(0);
+  const totalScored = entries.length;
+  const priority = entries.filter(e => e.score.score >= 80).length;
+  const good = entries.filter(e => e.score.score >= 60).length;
+  const totalWA = whatsappResults.reduce((s, r) => s + r.callCount, 0);
+
+  console.log(`\n${sep}`);
+  console.log('  REZUMAT PIPELINE');
+  console.log(sep);
+  console.log(`  Durată totală:      ${elapsed}s`);
+  console.log(`  Apeluri în baza DB: ${totalScored}`);
+  console.log(`  Prioritare (≥80):   ${priority}`);
+  console.log(`  Bune (≥60):         ${good}`);
+  console.log(sep);
+  console.log('  FIȘIERE GENERATE');
+  console.log(sep);
+  console.log(`  Brief AMPE:         ${briefingPath}`);
+  console.log(`  WhatsApp mesaje:    ${whatsappResults.length} fișiere în data/whatsapp-briefs/`);
+  console.log('');
+
+  // Calendar de postare
+  const CALENDAR = [
+    { day: 'Luni    ', id: 'primarii' },
+    { day: 'Marți   ', id: 'imm'      },
+    { day: 'Miercuri', id: 'ong'      },
+    { day: 'Joi     ', id: 'educatie' },
+    { day: 'Vineri  ', id: 'tineri'   },
+    { day: 'Sâmbătă ', id: 'cetateni' },
+    { day: 'Duminică', id: 'medici'   },
+  ];
+  const byId = Object.fromEntries(whatsappResults.map(r => [r.profile.id, r]));
+  console.log('  CALENDAR POSTARE WHATSAPP');
+  console.log(sep);
+  CALENDAR.forEach(entry => {
+    const r = byId[entry.id];
+    const bar = '█'.repeat(r.callCount) || '○';
+    console.log(`  ${entry.day}  ${entry.id.padEnd(10)} ${bar} ${r.callCount} apeluri`);
+  });
+  console.log(`\n  Total apeluri distribuite WhatsApp: ${totalWA}`);
+  console.log(sep);
+}
+
 async function runWhatsapp() {
   const { loadCalls } = require('./storage');
   const { generateWhatsappBriefs } = require('./whatsapp');
@@ -87,6 +158,7 @@ Commands:
   npm run briefing          Generate this week's funding briefing
   npm run schedule          Run on weekly cron schedule
 
+  npm run weekly            Run full pipeline: scan + briefing + whatsapp
   npm run whatsapp          Generate WhatsApp messages per stakeholder profile
   npm run test:parser       Test the Claude parser with a sample call
   npm run test:scorer       Test the Claude scorer with a sample call
@@ -107,6 +179,7 @@ if (!process.env.ANTHROPIC_API_KEY) {
     case 'scan':      return runScan();
     case 'briefing':  return runBriefing();
     case 'whatsapp':  return runWhatsapp();
+    case 'weekly':    return runWeekly();
     case 'schedule':  return runSchedule();
     default:         return printHelp();
   }
