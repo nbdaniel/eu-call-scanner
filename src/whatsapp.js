@@ -154,21 +154,63 @@ async function generateWhatsappBriefs(calls, date) {
     console.log(`  → Salvat (${message.length} caractere)`);
   }
 
-  // Index file
-  const sorted = [...results].sort((a, b) => b.callCount - a.callCount);
+  // Calendar fix de postare: Luni→primarii, Marți→imm, Miercuri→ong,
+  // Joi→educatie, Vineri→tineri, Sâmbătă→cetateni, Duminică→medici
+  const POSTING_CALENDAR = [
+    { day: 'Luni',     id: 'primarii' },
+    { day: 'Marți',    id: 'imm'      },
+    { day: 'Miercuri', id: 'ong'      },
+    { day: 'Joi',      id: 'educatie' },
+    { day: 'Vineri',   id: 'tineri'   },
+    { day: 'Sâmbătă',  id: 'cetateni' },
+    { day: 'Duminică', id: 'medici'   },
+  ];
+
+  // Calculează datele calendaristice ale zilelor acestei săptămâni
+  const today = new Date();
+  const dow = today.getDay(); // 0=Duminică
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - (dow === 0 ? 6 : dow - 1));
+
+  const byId = Object.fromEntries(results.map(r => [r.profile.id, r]));
+  const totalCalls = results.reduce((s, r) => s + r.callCount, 0);
+
+  const calendarLines = POSTING_CALENDAR.map((entry, i) => {
+    const dayDate = new Date(monday);
+    dayDate.setDate(monday.getDate() + i);
+    const dateStr = dayDate.toLocaleDateString('ro-RO', { day: 'numeric', month: 'long' });
+    const r = byId[entry.id];
+    const status = r.callCount > 0 ? `${r.callCount} apeluri` : 'fără apeluri noi';
+    return `  ${entry.day} ${dateStr.padEnd(18)} → ${entry.id}.txt   [${status}, ${r.charCount} caractere]`;
+  });
+
   const lines = [
     `WHATSAPP BRIEFS — ${briefingDate}`,
     `Generat: ${new Date().toLocaleString('ro-RO')}`,
+    `Total apeluri distribuite: ${totalCalls} (în ${results.length} categorii)`,
     '',
-    'ORDINE RECOMANDATĂ DE POSTARE (după numărul de apeluri relevante):',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    'CALENDAR DE POSTARE — SĂPTĂMÂNA ACEASTA',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
     '',
-    ...sorted.map((r, i) => [
-      `${i + 1}. ${r.profile.emoji}  ${r.profile.label}`,
-      `   Fișier: whatsapp-briefs/${r.profile.id}.txt`,
-      `   Apeluri relevante: ${r.callCount} | Lungime: ${r.charCount} caractere`,
-      '',
-    ].join('\n')),
-    '---',
+    ...calendarLines,
+    '',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    'DETALII PER CATEGORIE',
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
+    '',
+    ...POSTING_CALENDAR.map(entry => {
+      const r = byId[entry.id];
+      return [
+        `${r.profile.emoji}  ${r.profile.label}`,
+        `   Fișier:            whatsapp-briefs/${entry.id}.txt`,
+        `   Apeluri relevante: ${r.callCount}`,
+        `   Lungime mesaj:     ${r.charCount} caractere`,
+        `   Zi de postare:     ${entry.day}`,
+        '',
+      ].join('\n');
+    }),
+    '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━',
     'NOTĂ: Copiază fiecare fișier .txt și trimite-l în grupul WhatsApp corespunzător.',
     'Verifică deadline-urile înainte de postare — pot fi actualizate față de săptămâna trecută.',
   ];
