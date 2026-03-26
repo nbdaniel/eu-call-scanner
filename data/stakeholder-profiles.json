@@ -69,20 +69,38 @@
       "description_ro": "Mobilități, parteneriate strategice, digitalizarea educației, formare continuă și proiecte de cercetare pentru instituții și cadre didactice."
     },
     {
-      "id": "medici",
-      "label": "Medici de familie și cabinete medicale",
-      "emoji": "🩺",
+      "id": "sanatate",
+      "label": "Sector medical și sănătate",
+      "emoji": "🏥",
       "keywords": [
-        "health", "healthcare", "public health", "prevention", "screening",
-        "e-health", "digital health", "telemedicine", "primary care",
-        "general practitioner", "medical training", "EU4Health", "health promotion",
-        "patient", "disease prevention", "health system", "medical innovation",
-        "sănătate", "medic", "cabinet medical", "prevenție", "digitalizare medicală"
+        "health", "healthcare", "medical", "hospital", "clinic",
+        "pharmaceutical", "pharma", "biotech", "medical devices", "e-health",
+        "eHealth", "digital health", "telemedicine", "telehealth", "mHealth",
+        "health data", "EHR", "electronic health record", "patient safety",
+        "clinical trial", "rare diseases", "cancer", "screening", "prevention",
+        "public health", "health workforce", "nursing", "dentist", "dental",
+        "physiotherapy", "rehabilitation", "mental health", "occupational health",
+        "laboratory", "diagnostic", "imaging", "radiology", "pathology",
+        "ambulance", "emergency care", "palliative care", "home care",
+        "long-term care", "elderly care", "health insurance", "health management",
+        "health informatics", "medical training", "CME", "continuing medical education",
+        "health promotion", "nutrition", "wellness", "food safety",
+        "antimicrobial resistance", "vaccination", "immunization",
+        "cross-border health", "health technology assessment", "HTA",
+        "medical supplies", "PPE", "sterilization", "health infrastructure",
+        "primary care", "secondary care", "tertiary care", "family medicine",
+        "general practitioner", "GP", "specialist", "surgery", "oncology",
+        "cardiology", "gastroenterology", "endoscopy", "dermatology",
+        "ophthalmology", "pediatrics", "geriatrics", "obstetrics", "gynecology",
+        "orthopedics", "neurology", "psychiatry", "pharmacy", "pharmacist"
       ],
       "programme_filters": [
-        "EU4Health", "ESF+", "Horizon Europe", "Digital Europe"
+        "EU4Health", "ESF+", "Horizon Europe", "Digital Europe",
+        "ERASMUS+ (medical/health education)", "Interreg (health)",
+        "PNRR (health component)", "InvestEU (health infrastructure)",
+        "EIC (health innovation)", "MSCA (health research)", "LIFE (environment & health)"
       ],
-      "description_ro": "Finanțare pentru digitalizare medicală, e-health, prevenție și screening, formare continuă și proiecte de sănătate publică."
+      "description_ro": "Oportunități pentru spitale, clinici, cabinete medicale, farmacii, laboratoare, producători de echipamente și dispozitive medicale, firme pharma/biotech, furnizori de servicii e-health și telemedicină, profesioniști din sănătate (medici, asistenți, farmaciști, fizioterapeuți), și organizații active în sănătate publică și prevenție."
     },
     {
       "id": "tineri",

@@ -368,7 +368,7 @@ async function generateWhatsappBriefs(calls, date) {
     { day: 'Joi',      id: 'educatie' },
     { day: 'Vineri',   id: 'tineri'   },
     { day: 'Sâmbătă',  id: 'cetateni' },
-    { day: 'Duminică', id: 'medici'   },
+    { day: 'Duminică', id: 'sanatate' },
   ];
 
   const byId = Object.fromEntries(results.map(r => [r.profile.id, r]));
